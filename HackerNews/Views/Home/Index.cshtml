@@ -1,0 +1,70 @@
+﻿@model HomeStoryViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="row">
+   
+    <div class="container mt-3">
+        <h2>Best Stories</h2>
+        <p>Type the title or author name to search:</p>
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Title or Author" aria-label="Search">
+            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <br>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th><strong>Title</strong></th>
+                    <th><strong>Author</strong></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.ListStoryModel != null)
+                {
+                    @foreach (var item in Model.ListStoryModel)
+                    {
+                        <tr>
+                            <td>
+                                <i class="fas fa-file"></i>
+                                <a href="@item.Url"
+                                   type="submit"
+                                   id="openArtical"
+                                   target="_blank"
+                                   class="button Secondary">
+                                    @item.Title
+                                </a>
+                            </td>
+                            <td>@item.By</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <strong>Please wait for data to load...</strong>
+                            </div>
+                        </td>
+                        <td> <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <cs-pager cs-paging-pagenumber="1"
+                  cs-paging-totalitems="4"
+                  cs-paging-pagesize="1"
+                  cs-pagenumber-param="pageNumber"
+                  asp-controller="Home"
+                  asp-action="Index"
+                  cs-pager-li-current-class="page-item active"
+                  cs-pager-li-other-class="page-item"
+                  cs-pager-li-non-active-class="page-item disabled"
+                  cs-pager-link-current-class="page-link"
+                  cs-pager-link-other-class="page-link">
+        </cs-pager>
+    </div>
+</div>
