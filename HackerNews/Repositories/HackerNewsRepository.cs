@@ -13,7 +13,7 @@ namespace HackerNews.Repositories
         {
             try
             {
-                string url = "https://hacker-news.firebaseio.com/v0/beststories.json";
+                string url = "https://hacker-news.firebaseio.com/v0/newstories.json";
                 int[] ids = new int[600];
                 var result = await clientAsync(url, ids);
                 return result;
