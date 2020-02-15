@@ -9,9 +9,11 @@
     <div class="container mt-3">
         <h2>Best Stories</h2>
         <p>Type the title or author name to search:</p>
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Title or Author" aria-label="Search">
+        <small class="text-warning" >@Model.Message</small>
+        <form class="form-inline" asp-controller="Home" asp-action="Index" method="post">
+            <input name="Search" class="form-control mr-sm-2" type="search" placeholder="Title or Author" aria-label="Search">
             <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+           <div><a class="btn btn-link" asp-area="" asp-controller="Home" asp-action="Index">Clear</a></div>
         </form>
         <br>
         <table class="table table-hover">
@@ -30,10 +32,9 @@
                             <td>
                                 <i class="fas fa-file"></i>
                                 <a href="@item.Url"
-                                   type="submit"
                                    id="openArtical"
                                    target="_blank"
-                                   class="button Secondary">
+                                   class="">
                                     @item.Title
                                 </a>
                             </td>
@@ -54,10 +55,11 @@
                 }
             </tbody>
         </table>
-        <cs-pager cs-paging-pagenumber="1"
-                  cs-paging-totalitems="4"
-                  cs-paging-pagesize="1"
+        <cs-pager cs-paging-pagenumber="Model.PageNumber"
+                  cs-paging-totalitems="Model.TotalItems"
+                  cs-paging-pagesize="Model.PageSize"
                   cs-pagenumber-param="pageNumber"
+                  cs-next-page-text="Next"
                   asp-controller="Home"
                   asp-action="Index"
                   cs-pager-li-current-class="page-item active"

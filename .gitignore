@@ -4,3 +4,8 @@
 
 /HackerNews/bin/Debug/netcoreapp2.1
 /HackerNews/obj
+/.vs/HackerNews/v16/Server/sqlite3
+/HackerNewsTest/bin/Debug/netcoreapp3.1
+/HackerNewsTest/obj
+/HackerNews/bin/Release/netcoreapp2.1
+/.vs/HackerNews/v16/TestStore/0

@@ -17,17 +17,16 @@ namespace HackerNews.Services
 
         public IHackerNewsRepository HackerNewsRepository { get; }
 
-        public async Task<List<StoryModel>>GetStories(int pageNumber, int pageSize)
+        public List<StoryModel>GetStories(int pageNumber, int pageSize, string Search)
         {
-            var ids = await HackerNewsRepository.GetBestStoriesIds();
             int exclude = (pageSize * pageNumber) - pageSize;
             List<StoryModel> storyModels = new List<StoryModel>();
-
-            var pages = ids.Skip(exclude).Take(pageSize);
-            foreach (var id in pages)
+            SingltonHomeStoryViewModel singltonHomeStoryViewModel = SingltonHomeStoryViewModel.Instsance;
+            if (singltonHomeStoryViewModel.ListStoryModel != null)
             {
-                var Story = await HackerNewsRepository.GetStory(id);
-                storyModels.Add(Story);
+                storyModels = singltonHomeStoryViewModel.ListStoryModel.Where(x => x.Title.Contains(Search.Trim(), StringComparison.OrdinalIgnoreCase) ||
+                                                                                   x.By.Contains(Search.Trim(), StringComparison.OrdinalIgnoreCase) ||
+                                                                                   Search.Trim() == "").Skip(exclude).Take(pageSize).ToList();
             }
 
             return storyModels;
@@ -43,8 +42,7 @@ namespace HackerNews.Services
                 var Story = await HackerNewsRepository.GetStory(id);
                 storyModels.Add(Story);
             }
-            SingltonHomeStoryViewModel singltonHomeStoryViewModel = SingltonHomeStoryViewModel.Instsance;
-            singltonHomeStoryViewModel.ListStoryModel = storyModels;
+
             return storyModels;
         }
     }

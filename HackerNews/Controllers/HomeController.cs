@@ -19,19 +19,31 @@ namespace HackerNews.Controllers
         {
             HackerNewsService = hackerNewsService;
         }
-        public async Task<IActionResult> Index(int pageNumber =1, int pageSize=10)
+        public async Task<IActionResult> Index(int pageNumber =1, int pageSize=10, string Search="")
         {
             SingltonHomeStoryViewModel singltonHomeStoryViewModel = SingltonHomeStoryViewModel.Instsance;
             HomeStoryViewModel homeStoryViewModel = new HomeStoryViewModel();
             if (singltonHomeStoryViewModel.ListStoryModel == null)
             {
-                var res = await HackerNewsService.LoadStories();
+                singltonHomeStoryViewModel.ListStoryModel = await HackerNewsService.LoadStories();
+            }
+            
+            homeStoryViewModel.PageNumber = pageNumber;
+            homeStoryViewModel.PageSize = pageSize;
+            homeStoryViewModel.ListStoryModel = HackerNewsService.GetStories(pageNumber, pageSize, Search);
+            if (Search == "")
+            {
+                homeStoryViewModel.TotalItems = singltonHomeStoryViewModel.ListStoryModel.Count;
             }
             else
             {
-                var stories = HackerNewsService.GetStories(pageNumber, pageSize);
-                
-                homeStoryViewModel.ListStoryModel = await stories;
+                homeStoryViewModel.TotalItems = pageSize;
+                var count = singltonHomeStoryViewModel.ListStoryModel.Where(x => x.Title.Contains(Search.Trim(), StringComparison.OrdinalIgnoreCase) ||
+                                                                                   x.By.Contains(Search.Trim(), StringComparison.OrdinalIgnoreCase)).ToList().Count;
+                if (count > 10)
+                {
+                    homeStoryViewModel.Message = "Please narrow your search. Only top 10 results are returned.";
+                }
             }
             return View(homeStoryViewModel);
         }

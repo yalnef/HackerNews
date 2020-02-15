@@ -8,7 +8,7 @@ namespace HackerNews.Services
 {
     public interface IHackerNewsService
     {
-        Task<List<StoryModel>> GetStories(int pageNumber, int pageSize);
+        List<StoryModel> GetStories(int pageNumber, int pageSize, string Search);
         Task<List<StoryModel>> LoadStories();
     }
 }
