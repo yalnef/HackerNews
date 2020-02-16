@@ -1,0 +1,11 @@
+# .NET C# code challenge  (Yousef Alnef)
+
+## Installation
+
+*This is a .Net Core 2.1 MVC application with Nunit test project. Make sure you run the code in Visual Studio 2017 or higher.
+*When the website is first published or if the apppool refreshed, the website will take up to 40 second the first time it loads to 
+cache all the values. After the first load, it should not need to call the API and will read from cache.
+
+## Usage
+*From the homepage, you can click on the links from the table to open the articals. Type the title or author name to search, or click on the page 
+number to browser the latest stories. 
