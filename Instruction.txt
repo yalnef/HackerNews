@@ -7,5 +7,5 @@
 cache all the values. After the first load, it should not need to call the API and will read from cache.
 
 ## Usage
-*From the homepage, you can click on the links from the table to open the articals. Type the title or author name to search, or click on the page 
+*From the homepage, you can click on the links from the table to open the articles. Type the title or author name to search, or click on the page 
 number to browser the latest stories. 
